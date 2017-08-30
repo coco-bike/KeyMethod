@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConlseTest
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string root = @"E:\";
+            DirectoryInfo info = new DirectoryInfo(root);
+            ReadDictDictionary(info, root);
+            Console.ReadKey();
+        }
+        static public void ReadDictDictionary(DirectoryInfo info, string root)
+        {
+            
+            try
+            {
+                FileInfo[] files = info.GetFiles();
+                if (files != null && files.Length != 0)
+                {
+                    foreach (FileInfo file in files)
+                    {
+                        Console.WriteLine(file.FullName);
+                    }
+                }
+                DirectoryInfo[] directoies = info.GetDirectories();
+                if (directoies != null && directoies.Length > 0)
+                {
+                    foreach (DirectoryInfo d in directoies)
+                    {
+                        var root1 = root + @"\" + d;
+                        DirectoryInfo info1 = new DirectoryInfo(root1);
+                        ReadDictDictionary(info1, root1);
+                        Console.WriteLine(d.FullName);
+                        root1 = null;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return;
+            }
+        }
+    }
+}

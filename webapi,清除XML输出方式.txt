@@ -1,0 +1,4 @@
+在Global.asax.cs上，加入
+	var format = GlobalConfiguration.Configuration.Formatters;
+            //清除默认xml
+            format.XmlFormatter.SupportedMediaTypes.Clear();

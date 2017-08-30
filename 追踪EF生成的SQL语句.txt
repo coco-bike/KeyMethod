@@ -1,0 +1,5 @@
+дк  public BookServiceContext() : base("name=BookServiceContext")
+        {
+            this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+
+        }

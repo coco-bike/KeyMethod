@@ -1,0 +1,7 @@
+隐藏   复制代码
+Enable-Migrations
+运行此命令后，它会将Migrations 文件夹添加到我们的项目中。此Migrations文件夹包含一个文件：
+
+Configuration.cs类文件： 此类包含配置数据库迁移的方法。使用数据库迁移，Entity Framework可以轻松地使用项目中定义的Model类来创建数据库。
+Add-Migration Initial
+Update-Database

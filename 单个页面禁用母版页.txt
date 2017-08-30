@@ -1,0 +1,14 @@
+在_ViewStart.cshtml中替换
+@{
+   
+    if (Request.Url.AbsoluteUri != "http://localhost:3950/Account/Login")//替换掉禁用网页的地址
+    {
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = null;
+    }
+    
+       
+}

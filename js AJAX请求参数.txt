@@ -1,0 +1,32 @@
+$.ajax({
+        type: "post",
+        url: "../home/GetPagingList",
+        dataType: "json",
+        data: JSON.stringify({ "pageIndex": pageIndex, "pageSize": 15 }),
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+
+        }
+    });
+
+
+script>
+    function load(){ 
+        $.ajax({
+            type: "post",
+            url: "GetInformation",
+            dataType: "json",
+	    data:JSON.stringify({}),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data) {
+                    $("#1").attr("value", data);
+                }
+            },
+            error: function () {
+                alert('≥ˆœ÷“Ï≥£')
+            }
+        });
+    }
+</script>
+

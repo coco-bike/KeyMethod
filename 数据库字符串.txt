@@ -1,0 +1,3 @@
+<connectionStrings>
+    <add name="PressrvingSystem3" connectionString="Data Source=.;Database=PressrvingSystem3;User=sa; Password=sbk19930502;" providerName="System.Data.SqlClient" />
+  </connectionStrings>

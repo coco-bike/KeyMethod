@@ -1,0 +1,17 @@
+<html>
+<head>
+    <script type="text/javascript">
+        	function abc(obj){
+        		if(obj.value.length>0){
+        	    		document.getElementById("ids").disabled="true";
+        		}else{
+            	    		document.getElementById("ids").disabled="";
+            		}
+        	}
+    </script>
+<head>
+    <body>
+        	<input type="text"  onpropertychange="abc(this)"/>
+        	<input type="text" id="ids"/>
+    </body>
+</html>

@@ -1,0 +1,2 @@
+搜索microsoft.aspnet.webapi.cors
+安装第一个

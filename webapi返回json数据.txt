@@ -1,0 +1,37 @@
+public static HttpResponseMessage toJson(Object obj) 
+{ 
+    String str; 
+    if (obj is String ||obj is Char) 
+    { 
+        str = obj.ToString(); 
+    } 
+    else 
+    { 
+        JavaScriptSerializer serializer = new JavaScriptSerializer(); 
+        str = serializer.Serialize(obj); 
+    } 
+    HttpResponseMessage result = new HttpResponseMessage { Content = new StringContent(str, Encoding.GetEncoding("UTF-8"), "application/json") }; 
+    return result; 
+}   
+
+
+
+
+
+
+
+
+
+
+
+
+[HttpPost]
+public HttpResponseMessage Upload()
+{
+string json = "{\"result\":\"true\"}";
+return new HttpResponseMessage { Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json") };
+}
+
+
+
+引用程序集system.web.Extension然后使用using System.Web.Script.Serialization

@@ -1,0 +1,15 @@
+
+<input type="checkbox" id="autologin" checked="true">
+
+
+
+
+
+
+
+
+
+
+
+
+$("input[type='checkbox']").is(':checked')

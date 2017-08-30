@@ -1,0 +1,3 @@
+在NuGet.org上获取
+
+Install-Package WebApiTestClient -Pre
