@@ -1,0 +1,148 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+public class HttpManager
+{
+    const int bytebuff = 1024;
+    const int ReadWriteTimeOut = 2  1000;超时等待时间
+    const int TimeOutWait = 5  1000;超时等待时间
+    const int MaxTryTime = 12;
+    static Dictionarystring,int TryNumDic = new Dictionarystring,int();
+　　
+     summary
+     下载文件（同步）  支持断点续传
+     summary
+     param name=url文件urlparam
+     param name=savepath本地保存路径param
+     param name=progress下载进度（百分比）param
+     param name=size下载文件大小param
+    public static void DowLoadFile(string url,string savepath,ref int progress,long size = 0)
+    {
+        打开上次下载的文件
+        long lStartPos = 0;
+        FileStream fs;
+        if(File.Exists(savepath))
+        {
+            fs = File.OpenWrite(savepath);
+            lStartPos = fs.Length;
+            fs.Seek(lStartPos,SeekOrigin.Current);移动文件流中的当前指针
+        }
+        else
+        {
+            string direName = Path.GetDirectoryName(savepath);
+            if(!Directory.Exists(direName))如果不存在保存文件夹路径，新建文件夹
+            {
+                Directory.CreateDirectory(direName);
+            }
+            fs = new FileStream(savepath, FileMode.Create);
+            lStartPos = 0;
+        }
+
+        HttpWebRequest request = null;
+        try{
+            if(size == 0)
+            {
+                size = GetFileContentLength(url);
+            }
+            if(size != 0 && size == lStartPos)
+            {
+                下载完成
+                fs.Close();
+                return;
+            }
+
+            request = (HttpWebRequest)WebRequest.Create(url);
+            request.ReadWriteTimeout = ReadWriteTimeOut;
+            request.Timeout = TimeOutWait;
+            if(lStartPos0)
+                request.AddRange((int)lStartPos);设置Range值，断点续传
+
+            向服务器请求，获得服务器回应数据流
+            WebResponse respone = request.GetResponse();
+            long totalSize = respone.ContentLength + lStartPos;
+            long curSize  = lStartPos;
+            progress  = (int)(curSize  totalSize 100);
+
+            Stream ns = respone.GetResponseStream();
+
+            byte[] nbytes = new byte[bytebuff];
+            int nReadSize = 0;
+            while(nReadSize  0)
+            {
+                fs.Write(nbytes, 0, nReadSize);
+                nReadSize = ns.Read(nbytes, 0 ,bytebuff);
+
+                curSize += nReadSize;
+                下载进度计算
+                if (progress  (int)((double)curSize  totalSize  100))
+                    progress = (int)((double)curSize  totalSize  100);
+                fs.Flush();
+                ns.Close();
+                fs.Close();
+                if(curSize!=totalSize)文件长度不等于下载长度，下载出错
+                {
+                    throw new Exception();
+                }
+                if(request != null)
+                {
+                    request.Abort();
+                }
+                TryNumDic.Remove(url);
+            }
+        }
+        catch 
+        {
+            if(request!=null)
+            {
+                request.Abort();
+            }
+            
+            fs.Close();
+            if(TryNumDic.ContainsKey(url))
+            {
+                if(TryNumDic[url]MaxTryTime)
+                {
+                    TryNumDic.Remove(url);
+                    throw new Exception();
+                }
+                else
+                {
+                    TryNumDic[url]++;
+                }
+            }
+            else
+            {
+                TryNumDic.Add(url,1);
+            }
+            DowLoadFile(url, savepath, ref progress, size);
+        }
+    }
+
+     summary
+     获取下载文件长度
+     summary
+     param name=urlparam
+     returnsreturns
+    public static long GetFileContentLength(string url)
+    {
+        HttpWebRequest request = null;
+        try
+        {
+            request = (HttpWebRequest)HttpWebRequest.Create(url);
+            request.Timeout = TimeOutWait;
+            request.ReadWriteTimeout = ReadWriteTimeOut;
+            向服务器请求，获得服务器回应数据流
+            WebResponse respone = request.GetResponse();
+            request.Abort();
+            return respone.ContentLength;
+        }
+        catch(Exception e)
+        {
+            if(request != null)
+                request.Abort();
+            return 0;
+        }
+    }
+
+}

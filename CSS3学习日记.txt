@@ -1,0 +1,129 @@
+1.阴影
+//1、阴影模糊半径与阴影扩展半径的区别
+
+阴影模糊半径：此参数可选，其值只能是为正值，如果其值为0时，表示阴影不具有模糊效果，其值越大阴影的边缘就越模糊；
+
+阴影扩展半径：此参数可选，其值可以是正负值，如果值为正，则整个阴影都延展扩大，反之值为负值时，则缩小；
+
+2、X轴偏移量和Y轴偏移量值可以设置为负数
+
+box-shadow: X轴偏移量 Y轴偏移量 [阴影模糊半径] [阴影扩展半径] [阴影颜色] [投影方式];
+.boxshadow-outset{
+    width:100px;
+	height:100px;
+    box-shadow:4px 4px 6px #666,-5px -4px 6px #000,0px 0px 6px 5px #33CC00 inset; 
+}
+.boxshadow-inset{
+    width:100px;
+    height:100px;
+    box-shadow:4px 4px 6px #666 inset; 
+}
+.boxshadow-multi{
+    width:100px;
+    height:100px;
+    box-shadow:4px 2px 6px #f00, -4px -2px 6px #000, 0px 0px 12px 5px #33CC00 inset;
+}
+
+
+2.为边框应用图片 border-image
+
+border-image:url(http://img.mukewang.com/52e22a1c0001406e03040221.jpg) 70 round;
+
+
+3.rgba
+
+background-color:rgba(100,120,60,0.5);
+
+
+4.渐变色彩
+
+  background-image:linear-gradient(to top left ,red,orange,yellow,green,blue,indigo,violet);
+
+5.文字与字体 text-overflow 与 word-wrap
+
+text-overflow:ellipsis; 
+text-overflow:clip;
+text-overflow:ellipsis; 
+overflow:hidden; 
+white-space:nowrap; 
+
+6.@font-face能够加载服务器端的字体文件，让浏览器端可以显示用户电脑里没有安装的字体。
+
+@font-face {
+    font-family : 字体名称;
+    src : 字体文件在服务器上的相对或绝对路径;
+}
+
+p {
+    font-size :12px;
+    font-family : "My Font";
+    /*必须项，设置@font-face中font-family同样的值*/
+}
+
+7.text-shadow可以用来设置文本的阴影效果。
+
+text-shadow: X-Offset Y-Offset blur color;
+
+X-Offset：表示阴影的水平偏移距离，其值为正值时阴影向右偏移，反之向左偏移；      
+
+Y-Offset：是指阴影的垂直偏移距离，如果其值是正值时，阴影向下偏移，反之向上偏移；
+
+Blur：是指阴影的模糊程度，其值不能是负值，如果值越大，阴影越模糊，反之阴影越清晰，如果不需要阴影模糊可以将Blur值设置为0；
+
+Color：是指阴影的颜色，其可以使用rgba色。
+
+8.background-origin 设置元素背景图片的原始起始位置。
+
+background-origin ： border-box | padding-box | content-box;
+
+9.background-clip 用来将背景图片做适当的裁剪以适应实际需要。
+
+background-clip ： border-box | padding-box | content-box | no-clip
+参数分别表示从边框、或内填充，或者内容区域向外裁剪背景。no-clip表示不裁切，和参数border-box显示同样的效果。backgroud-clip默认值为border-box。
+
+ 10.background-size
+设置背景图片的大小，以长度值或百分比显示，还可以通过cover和contain来对图片进行伸缩。
+
+background-size: auto | <长度值> | <百分比> | cover | contain
+
+1、auto：默认值，不改变背景图片的原始高度和宽度；
+
+2、<长度值>：成对出现如200px 50px，将背景图片宽高依次设置为前面两个值，当设置一个值时，将其作为图片宽度值来等比缩放；
+
+3、<百分比>：0％~100％之间的任何值，将背景图片宽高依次设置为所在元素宽高乘以前面百分比得出的数值，当设置一个值时同上；
+
+4、cover：顾名思义为覆盖，即将背景图片等比缩放以填满整个容器；
+
+5、contain：容纳，即将背景图片等比缩放至某一边紧贴容器边缘为止。
+
+提示：大家可以在右边的编辑窗口输入自己的代码尝试不同取值的效果。
+
+11.multiple backgrounds
+.demo{
+    width: 300px;
+    height: 140px;
+    border: 1px solid #999;
+    
+    background-image: url(http://img.mukewang.com/54cf2365000140e600740095.jpg),
+                      url(http://img.mukewang.com/54cf238a0001728d00740095.jpg),
+                      url(http://img.mukewang.com/54cf23b60001fd9700740096.jpg);
+    background-position: left top, 100px 0, 200px 0;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    
+    margin:0 0 20px 0;
+}
+
+12. css3的选择器
+
+a[class^=icon]{
+  background: green;
+  color:#fff;
+}
+a[href$=pdf]{
+  background: orange;
+  color: #fff;
+}
+a[title*=more]{
+  background: blue;
+  color: #fff;
+}

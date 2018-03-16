@@ -1,0 +1,7 @@
+VS2013自带IIS Express，无法发布JSON文件，需添加MIME映射。
+没有图形界面，只能命令行。
+进入C:\Program Files(x86)\IIS Express文件夹，输入：
+appcmd set config /section:staticContent /+[fileExtension='.json',mimeType='application/json']
+回车，
+成功后提示：
+已经在配置提交路径”MACHINE/WEBROOT/APPHOST“向”MACHINE/WEBROOT/APPHOST“的”system.webServer/staticContent“节应用了配置更改。

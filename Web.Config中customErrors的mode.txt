@@ -1,0 +1,1 @@
+在iis中找到asp.net网站右键--权限添加network service 用户到该目录就可以了
